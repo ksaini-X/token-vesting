@@ -6,6 +6,8 @@
   },
   "dependencies": {
     "@coral-xyz/anchor": "^0.31.0",
+    "@solana-program/token": "^0.13.0",
+    "@solana/kit": "^6.7.0",
     "@solana/spl-token": "^0.4.14"
   },
   "devDependencies": {
