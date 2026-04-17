@@ -5,7 +5,7 @@ import useProgram from "@/hooks/useProgram";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { Plus, Terminal as TerminalIcon, Loader2 } from "lucide-react";
 import { PublicKey } from "@solana/web3.js";
-import { BN } from "@coral-xyz/anchor"; // Make sure anchor is installed
+import { BN } from "@coral-xyz/anchor";
 
 const INITIAL_FORM_STATE = {
   receiver: "",
@@ -37,7 +37,6 @@ export default function AdminView() {
     try {
       setLoading(true);
 
-      // Convert strings to appropriate types (BN for u64)
       const totalAmountBN = new BN(form.totalAmount);
       const vestingIdBN =
         new BN(form.vestingId) || new BN(Math.random() * 10000000000);
@@ -53,22 +52,22 @@ export default function AdminView() {
       );
       console.log(userTokenAccount.value[0].pubkey);
 
-      // const res = await program.methods
-      //   .initVestingSchedule(
-      //     new PublicKey(form.receiver),
-      //     totalAmountBN,
-      //     cliffBN,
-      //     startBN,
-      //     endBN,
-      //     vestingIdBN,
-      //   )
-      //   .accounts({
-      //     tokenMint: token_mint_pubkey,
-      //     creatorTokenAccount: userTokenAccount,
-      //   })
-      //   .rpc();
+      const res = await program.methods
+        .initVestingSchedule(
+          new PublicKey(form.receiver),
+          totalAmountBN,
+          cliffBN,
+          startBN,
+          endBN,
+          vestingIdBN,
+        )
+        .accounts({
+          tokenMint: token_mint_pubkey,
+          creatorTokenAccount: userTokenAccount.value[0].pubkey,
+        })
+        .rpc();
 
-      // console.log("Vault Created:", res);
+      console.log("Vault Created:", res);
       setForm(INITIAL_FORM_STATE);
     } catch (err) {
       console.error("Creation failed:", err);

@@ -26,7 +26,7 @@ pub mod vesting_program {
             start_time,
             end_time,
             vesting_id,
-        );
+        )?;
         Ok(())
     }
 
